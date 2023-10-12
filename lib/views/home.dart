@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/catgoly/catgoly.dart';
 import 'package:reviews_molod/catgoly/recom_review.dart';
 import 'package:reviews_molod/views/login.dart';
+import 'package:reviews_molod/views/profile/profile.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -24,14 +25,19 @@ class _HomeState extends State<Home> {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text("Sumet Maneechanthra"),
-              accountEmail: Text("sumet.ma@ku.th 5555"),
+              accountName: const Text("Sumet Maneechanthra"),
+              accountEmail: const Text("sumet.ma@ku.th 5555"),
               currentAccountPicture: Image.asset("assets/logo.png"),
             ),
             ListTile(
               leading: const Icon(Icons.account_circle),
               title: const Text("ข้อมูลส่วนตัว"),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfilePage()));
+              },
             ),
             ListTile(
               leading: const Icon(Icons.logout),
@@ -104,7 +110,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(left: 15.0),
+                  padding: EdgeInsets.only(left: 10.0),
                   child: Catgoly(),
                 ),
                 Container(
