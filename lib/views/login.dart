@@ -19,7 +19,7 @@ class _LoginState extends State<Login> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
-            child: Image.asset("logo.png"),
+            child: Image.asset("assets/logo.png"),
           ),
           Text(
             "Reviews MoLods",

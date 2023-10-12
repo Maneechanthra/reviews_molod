@@ -6,9 +6,9 @@ class ListMenu {
 }
 
 List<ListMenu> Listpage = [
-  ListMenu(name: "สถานที่ท่องเที่ยว", img: "img/logo01.png"),
-  ListMenu(name: "อาหาร/เครื่องดื่ม", img: "img/logo02.png"),
-  ListMenu(name: "ภาพยนต์", img: "img/logo03.png"),
-  ListMenu(name: "ร้านอาหาร", img: "img/logo04.png"),
-  ListMenu(name: "หนังสือ", img: "img/logo05.png"),
+  ListMenu(name: "สถานที่ท่องเที่ยว", img: "assets/img/logo01.png"),
+  ListMenu(name: "อาหาร/เครื่องดื่ม", img: "assets/img/logo02.png"),
+  ListMenu(name: "ภาพยนต์", img: "assets/img/logo03.png"),
+  ListMenu(name: "ร้านอาหาร", img: "assets/img/logo04.png"),
+  ListMenu(name: "หนังสือ", img: "assets/img/logo05.png"),
 ];

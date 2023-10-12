@@ -23,10 +23,10 @@ class _HomeState extends State<Home> {
       drawer: Drawer(
         child: ListView(
           children: [
-            const UserAccountsDrawerHeader(
+            UserAccountsDrawerHeader(
               accountName: Text("Sumet Maneechanthra"),
-              accountEmail: Text("sumet.ma@ku.th"),
-              currentAccountPicture: Image(image: AssetImage("logo.png")),
+              accountEmail: Text("sumet.ma@ku.th 5555"),
+              currentAccountPicture: Image.asset("assets/logo.png"),
             ),
             ListTile(
               leading: const Icon(Icons.account_circle),
@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
                   height: 220,
                   decoration: BoxDecoration(
                     image: const DecorationImage(
-                      image: AssetImage("img/banner.jpg"),
+                      image: AssetImage("assets/img/banner.jpg"),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.circular(24),

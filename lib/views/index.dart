@@ -13,7 +13,7 @@ class Index extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("logo.png"),
+              Image.asset("assets/logo.png"),
               Text(
                 "Reviews maLod",
                 style: GoogleFonts.prompt(

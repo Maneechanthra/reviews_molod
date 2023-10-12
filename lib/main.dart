@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.promptTextTheme(Theme.of(context).textTheme),
       ),
-      home: const Index(),
+      home: const Home(),
     );
   }
 }
