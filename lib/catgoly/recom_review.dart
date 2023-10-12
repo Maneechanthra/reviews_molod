@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/class_list/list_recom.dart';
+import 'package:reviews_molod/views/book.dart';
+import 'package:reviews_molod/views/movie.dart';
+import 'package:reviews_molod/views/restaurant.dart';
+import 'package:reviews_molod/views/tavel.dart';
 
 class RecomReview extends StatefulWidget {
   const RecomReview({Key? key}) : super(key: key);
@@ -14,14 +18,31 @@ class _RecomReviewState extends State<RecomReview> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: GridView.count(
-        childAspectRatio: 0.9,
+        childAspectRatio: 0.7,
         crossAxisCount: 2,
         shrinkWrap: true,
         children: List.generate(ListRecomPage.length, (index) {
           return Card(
             elevation: 0.7,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                if (ListRecomPage[index].name == "วัดพระแก้ว") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Tavel()));
+                } else if (ListRecomPage[index].name == "ร้านฟาร์มฮัก") {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Restaurant()));
+                } else if (ListRecomPage[index].name == "Ballerina") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Moive()));
+                } else if (ListRecomPage[index].name ==
+                    "สรุปข้อคิดจากหนังสือ “THE HAPPIEST PERSON IN THE ROOM อยู่เย็นเป็นสูตร") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Book()));
+                }
+              },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -35,7 +56,7 @@ class _RecomReviewState extends State<RecomReview> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),

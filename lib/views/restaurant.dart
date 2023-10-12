@@ -10,6 +10,8 @@ class Restaurant extends StatefulWidget {
 class _RestaurantState extends State<Restaurant> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(title: const Center(child: Text("รีวิวร้านอาหาร"))),
+    );
   }
 }

@@ -10,6 +10,8 @@ class Moive extends StatefulWidget {
 class _MoiveState extends State<Moive> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(title: const Center(child: Text("รีวิวหนัง/ภาพยนต์"))),
+    );
   }
 }

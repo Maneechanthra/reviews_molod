@@ -10,6 +10,8 @@ class Book extends StatefulWidget {
 class _BookState extends State<Book> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(title: const Center(child: Text("รีวิวหนังสือ"))),
+    );
   }
 }

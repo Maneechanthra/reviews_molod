@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/catgoly/catgoly.dart';
 import 'package:reviews_molod/catgoly/recom_review.dart';
+import 'package:reviews_molod/views/login.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -21,15 +22,24 @@ class _HomeState extends State<Home> {
       ),
       drawer: Drawer(
         child: ListView(
-          children: const [
-            UserAccountsDrawerHeader(
+          children: [
+            const UserAccountsDrawerHeader(
               accountName: Text("Sumet Maneechanthra"),
               accountEmail: Text("sumet.ma@ku.th"),
-              currentAccountPicture: FlutterLogo(),
+              currentAccountPicture: Image(image: AssetImage("logo.png")),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Home"),
+              leading: const Icon(Icons.account_circle),
+              title: const Text("ข้อมูลส่วนตัว"),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text("ออกจากระบบ"),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Login()));
+              },
             ),
           ],
         ),
@@ -40,16 +50,6 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    color: Colors.black,
-                  ),
-                  height: 150, // Adjust the height as needed
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
                 Column(
                   children: [
                     Container(
@@ -121,6 +121,19 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text(
+          "รีวิว",
+          style: GoogleFonts.prompt(color: Colors.white),
+        ),
+        onPressed: () {},
+        icon: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        backgroundColor: const Color.fromARGB(255, 14, 195, 219),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

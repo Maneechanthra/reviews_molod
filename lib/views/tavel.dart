@@ -10,6 +10,10 @@ class Tavel extends StatefulWidget {
 class _TavelState extends State<Tavel> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar:
+          AppBar(title: const Center(child: Text("รีวิวสถานที่ท่องเที่ยว"))),
+      body: ListView(children: [Card()]),
+    );
   }
 }
