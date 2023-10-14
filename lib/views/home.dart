@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/catgoly/catgoly.dart';
 import 'package:reviews_molod/catgoly/recom_review.dart';
+import 'package:reviews_molod/crud/addreview.dart';
 import 'package:reviews_molod/views/login.dart';
 import 'package:reviews_molod/views/profile/profile.dart';
 
@@ -43,8 +44,12 @@ class _HomeState extends State<Home> {
               leading: const Icon(Icons.logout),
               title: const Text("ออกจากระบบ"),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Login()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Login(
+                              title: '',
+                            )));
               },
             ),
           ],
@@ -132,7 +137,10 @@ class _HomeState extends State<Home> {
           "รีวิว",
           style: GoogleFonts.prompt(color: Colors.white),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddReviews()));
+        },
         icon: const Icon(
           Icons.add,
           color: Colors.white,

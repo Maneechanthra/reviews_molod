@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/catgoly/review_with_me.dart';
+import 'package:reviews_molod/views/profile/dataprivate.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -54,7 +55,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       const Spacer(),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const DataPrivate()));
+                        },
                         child: const Icon(
                           Icons.edit,
                           size: 30,

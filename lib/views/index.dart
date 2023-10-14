@@ -29,8 +29,12 @@ class Index extends StatelessWidget {
                 width: 250,
                 child: FilledButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Login()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Login(
+                                  title: '',
+                                )));
                   },
                   child: const Text("Get"),
                 ),

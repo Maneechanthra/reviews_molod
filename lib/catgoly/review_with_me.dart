@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/class_list/list_recom.dart';
-import 'package:reviews_molod/class_list/listmenu.dart';
-import 'package:reviews_molod/views/detail/detail.dart';
-import 'package:reviews_molod/views/index.dart';
 
 class ReviewWithMe extends StatefulWidget {
   const ReviewWithMe({super.key});
@@ -17,16 +14,14 @@ class _ReviewWithMeState extends State<ReviewWithMe> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: GridView.count(
-        childAspectRatio: 0.5,
+        childAspectRatio: 0.4,
         crossAxisCount: 3,
         shrinkWrap: true,
         children: List.generate(ListRecomPage.length, (index) {
           return Card(
             elevation: 0.7,
             child: InkWell(
-              onTap: () {
-                // ทำอะไรสักอย่างเมื่อคลิกที่ Card
-              },
+              onTap: () {},
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -34,7 +29,7 @@ class _ReviewWithMeState extends State<ReviewWithMe> {
                     borderRadius: BorderRadius.circular(12),
                     child: Image.asset(
                       ListRecomPage[index].img,
-                      height: 150,
+                      height: 170,
                       width: double.maxFinite,
                       fit: BoxFit.cover,
                     ),
@@ -72,6 +67,22 @@ class _ReviewWithMeState extends State<ReviewWithMe> {
                           style: GoogleFonts.prompt(
                               fontSize: 10,
                               color: const Color.fromARGB(221, 168, 168, 168)),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            InkWell(
+                              onTap: () {},
+                              child: const Icon(Icons.edit),
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: const Icon(Icons.delete),
+                            ),
+                          ],
                         ),
                       ],
                     ),

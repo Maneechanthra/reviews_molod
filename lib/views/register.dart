@@ -93,7 +93,9 @@ class _RegisterState extends State<Register> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Login()));
+                                builder: (context) => const Login(
+                                      title: '',
+                                    )));
                       },
                       child: const Text("สมัครสมาชิก"),
                     ),
@@ -112,7 +114,9 @@ class _RegisterState extends State<Register> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Login()));
+                                    builder: (context) => const Login(
+                                          title: '',
+                                        )));
                           },
                           child: const Text("เข้าสู่ระบบ"))
                     ],

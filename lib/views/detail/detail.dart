@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reviews_molod/class_list/list_recom.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
@@ -97,7 +96,7 @@ class _DetailPageState extends State<DetailPage> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               SizedBox(
