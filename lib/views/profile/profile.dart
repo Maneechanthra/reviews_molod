@@ -104,12 +104,18 @@ class _ProfilePageState extends State<ProfilePage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "ชื่อ : " + userData.name,
-                                    style: GoogleFonts.kanit(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(255, 56, 0, 160)),
+                                  SizedBox(
+                                    width: 200,
+                                    child: Text(
+                                      "ชื่อ : " + userData.name,
+                                      style: GoogleFonts.kanit(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color:
+                                              Color.fromARGB(255, 56, 0, 160)),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                   Text(
                                     "อีเมล : " + userData.email,

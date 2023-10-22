@@ -131,11 +131,16 @@ class _FoodState extends State<Food> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          post.title, // แสดงชื่อสถานที่จาก API
-                                          style: GoogleFonts.prompt(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w500,
+                                        SizedBox(
+                                          width: 200,
+                                          child: Text(
+                                            post.title,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.prompt(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         ),
                                         SizedBox(

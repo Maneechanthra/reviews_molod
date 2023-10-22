@@ -121,7 +121,7 @@ class _DetailPageState extends State<DetailPage> {
                     const SizedBox(
                       height: 15,
                     ),
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -133,29 +133,44 @@ class _DetailPageState extends State<DetailPage> {
                         SizedBox(
                           height: 5,
                         ),
-                        // SizedBox(
-                        //   height: 50,
-                        //   child: ListView.builder(
-                        //     scrollDirection: Axis.horizontal,
-                        //     itemCount: 3,
-                        //     itemBuilder: (context, index) {
-                        //       EdgeInsets edgeInsets = index != 0
-                        //           ? const EdgeInsets.only(left: 8.0)
-                        //           : const EdgeInsets.all(0.0);
-                        //       final imageField = "img_content_${index + 1}";
-                        //       return Padding(
-                        //         padding: edgeInsets,
-                        //         child: ClipRRect(
-                        //           borderRadius: BorderRadius.circular(5),
-                        //           child: Image.network(
-                        //             post[imageField], // แสดงรูปภาพ
-                        //             height: 100,
-                        //           ),
-                        //         ),
-                        //       );
-                        //     },
-                        //   ),
-                        // )
+                        SizedBox(
+                          height: 50,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 3, // จำนวนรูปภาพที่ต้องการแสดง
+                            itemBuilder: (context, index) {
+                              final int imgContentIndex =
+                                  index + 1; // เพิ่มเลขตั้งแต่ 1
+                              EdgeInsets edgeInsets = index != 0
+                                  ? const EdgeInsets.only(left: 8.0)
+                                  : const EdgeInsets.all(0.0);
+                              String imageUrl_post;
+
+                              if (imgContentIndex == 1) {
+                                imageUrl_post =
+                                    'http://10.0.2.2:8000/api/storage/img_content/${post.imgContent1}';
+                              } else if (imgContentIndex == 2) {
+                                imageUrl_post =
+                                    'http://10.0.2.2:8000/api/storage/img_content/${post.imgContent2}';
+                              } else {
+                                imageUrl_post =
+                                    'http://10.0.2.2:8000/api/storage/img_content/${post.imgContent3}';
+                              }
+
+                              print(imageUrl_post);
+                              return Padding(
+                                padding: edgeInsets,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Image.network(
+                                    imageUrl_post, // แสดงรูปภาพ
+                                    height: 100,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        )
                       ],
                     ),
                     const SizedBox(

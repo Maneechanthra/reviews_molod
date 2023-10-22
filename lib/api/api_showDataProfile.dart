@@ -62,7 +62,7 @@ Future<List<ShowDataProfile>> fetchShowPostUser(int userId) async {
     final List<dynamic> dataList = json.decode(response.body);
     final List<ShowDataProfile> data = dataList
         .map((item) => ShowDataProfile.fromJson(item))
-        .toList(growable: false); // สร้าง List แบบไม่เปลี่ยนแปลง
+        .toList(growable: false);
     return data;
   } else {
     throw Exception('Failed to load data from API');

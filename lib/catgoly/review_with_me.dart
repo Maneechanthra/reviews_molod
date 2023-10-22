@@ -38,6 +38,8 @@ class _ReviewWithMeState extends State<ReviewWithMe> {
               shrinkWrap: true,
               children: List.generate(snapshot.data!.length, (index) {
                 print("ID: ${snapshot.data![index].post_id}");
+
+                print("title : ${snapshot.data![index].title}");
                 final String imageUrl =
                     'http://10.0.2.2:8000/api/storage/img_content/${snapshot.data![index].imgContent1}';
                 print(imageUrl);

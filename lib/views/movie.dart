@@ -133,11 +133,16 @@ class _MovieState extends State<Movie> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          post.title, // แสดงชื่อสถานที่จาก API
-                                          style: GoogleFonts.prompt(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w500,
+                                        SizedBox(
+                                          width: 220,
+                                          child: Text(
+                                            post.title, // แสดงชื่อสถานที่จาก API
+                                            style: GoogleFonts.prompt(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                         SizedBox(
