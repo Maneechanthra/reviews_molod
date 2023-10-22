@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reviews_molod/api/api_showDataProfile.dart';
 import 'package:reviews_molod/class_list/list_recom.dart';
 import 'package:reviews_molod/views/book.dart';
 import 'package:reviews_molod/views/movie.dart';
@@ -7,96 +8,127 @@ import 'package:reviews_molod/views/restaurant.dart';
 import 'package:reviews_molod/views/tavel.dart';
 
 class RecomReview extends StatefulWidget {
-  const RecomReview({Key? key}) : super(key: key);
+  final int user_id;
+  const RecomReview(this.user_id, {Key? key}) : super(key: key);
 
   @override
   State<RecomReview> createState() => _RecomReviewState();
 }
 
 class _RecomReviewState extends State<RecomReview> {
+  late Future<List<ShowDataProfile>> futureShowPost;
+
+  @override
+  void initState() {
+    super.initState();
+    futureShowPost = fetchShowPostUser(widget.user_id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: GridView.count(
-        childAspectRatio: 0.7,
-        crossAxisCount: 2,
-        shrinkWrap: true,
-        children: List.generate(ListRecomPage.length, (index) {
-          return Card(
-            elevation: 0.7,
-            child: InkWell(
-              onTap: () {
-                if (ListRecomPage[index].name == "วัดพระแก้ว") {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Tavel()));
-                } else if (ListRecomPage[index].name == "ร้านฟาร์มฮัก") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Restaurant()));
-                } else if (ListRecomPage[index].name == "Ballerina") {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Moive()));
-                } else if (ListRecomPage[index].name ==
-                    "สรุปข้อคิดจากหนังสือ “THE HAPPIEST PERSON IN THE ROOM อยู่เย็นเป็นสูตร") {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Book()));
-                }
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      ListRecomPage[index].img,
-                      height: 150,
-                      width: double.maxFinite,
-                      fit: BoxFit.cover,
+      child: FutureBuilder<List<ShowDataProfile>>(
+        future: futureShowPost,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child:
+                  CircularProgressIndicator(), // แสดง Indicator ในระหว่างโหลดข้อมูล
+            );
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else if (snapshot.hasData) {
+            return GridView.count(
+              childAspectRatio: 0.7,
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              children: List.generate(snapshot.data!.length, (index) {
+                final String imageUrl =
+                    'http://10.0.2.2:8000/api/storage/img_content/${snapshot.data![index].imgContent1}';
+                return Padding(
+                  padding: const EdgeInsets.only(left: 3.0, right: 3),
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 3.0, // เพิ่มเงา
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(12), // กำหนดขอบของการ์ด
+                    ),
+                    child: InkWell(
+                      onTap: () {},
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Card(
+                              elevation: 0.0, // ไม่มีเงา
+                              child: Image.network(
+                                imageUrl,
+                                height: 150,
+                                width: double.maxFinite,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          // const SizedBox(
+                          //   height: 5,
+                          // ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 8.0,
+                              right: 8,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  snapshot.data![index].post_title,
+                                  style: GoogleFonts.prompt(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(
+                                  width: 220,
+                                  child: Text(
+                                    snapshot.data![index].body,
+                                    style: GoogleFonts.prompt(
+                                      fontSize: 10,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(
+                                    snapshot.data![index].created_at,
+                                    style: GoogleFonts.prompt(
+                                      fontSize: 10,
+                                      color: const Color(0xFFA8A8A8),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          ListRecomPage[index].name,
-                          style: GoogleFonts.prompt(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          ListRecomPage[index].detail,
-                          style: GoogleFonts.prompt(
-                            fontSize: 10,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          ListRecomPage[index].date,
-                          style: GoogleFonts.prompt(
-                              fontSize: 10,
-                              color: const Color.fromARGB(221, 168, 168, 168)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }),
+                );
+              }),
+            );
+          } else {
+            return Text('No data available');
+          }
+        },
       ),
     );
   }

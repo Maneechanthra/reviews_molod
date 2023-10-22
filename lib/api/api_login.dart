@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -19,12 +21,14 @@ class LoginResponse {
   final String email;
   final String jwtToken;
   final int userId;
+  final String name;
   final int loginStatus;
 
   const LoginResponse({
     required this.email,
     required this.jwtToken,
     required this.userId,
+    required this.name,
     required this.loginStatus,
   });
 
@@ -33,6 +37,7 @@ class LoginResponse {
       email: json['email'],
       jwtToken: json['jwt_token'],
       userId: json['user_id'],
+      name: json['name'],
       loginStatus: json['status'],
     );
   }

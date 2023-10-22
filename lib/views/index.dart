@@ -8,25 +8,43 @@ class Index extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(4, 35, 136, 1),
       body: Container(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("assets/logo.png"),
-              Text(
-                "Reviews maLod",
-                style: GoogleFonts.prompt(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 4, 205, 212),
-                ),
+              Image.asset(
+                "assets/logo.png",
+                width: 500,
               ),
               const SizedBox(
-                height: 20,
+                height: 200,
               ),
-              Container(
-                width: 250,
+              Column(
+                children: [
+                  // Text(
+                  //   "FUN IN THER SUN",
+                  //   style: GoogleFonts.kanit(
+                  //     fontSize: 40,
+                  //     fontWeight: FontWeight.bold,
+                  //     color: Color.fromARGB(255, 255, 255, 255),
+                  //   ),
+                  // ),
+                  // Text(
+                  //   "MaLod",
+                  //   style: GoogleFonts.kanit(
+                  //     fontSize: 60,
+                  //     color: Color.fromARGB(255, 255, 255, 255),
+                  //   ),
+                  // ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: 300,
                 child: FilledButton(
                   onPressed: () {
                     Navigator.push(
@@ -36,7 +54,16 @@ class Index extends StatelessWidget {
                                   title: '',
                                 )));
                   },
-                  child: const Text("Get"),
+                  style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                          Color.fromARGB(250, 255, 238, 0))),
+                  child: Text(
+                    "เริ่มต้นใช้งาน",
+                    style: GoogleFonts.kanit(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 27, 14, 211)),
+                  ),
                 ),
               ),
             ],

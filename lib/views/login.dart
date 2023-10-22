@@ -63,6 +63,7 @@ class _LoginState extends State<Login> {
 
     print(response.body);
     print(response.statusCode);
+
     if (response.statusCode == 200) {
       final Map<String, dynamic>? data = jsonDecode(response.body);
 
@@ -79,6 +80,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(4, 35, 136, 1),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 100.0),
@@ -97,15 +99,15 @@ class _LoginState extends State<Login> {
               Center(
                 child: Image.asset("assets/logo.png"),
               ),
-              Text(
-                "Reviews MoLods",
-                style: GoogleFonts.prompt(
-                    color: const Color.fromARGB(255, 4, 205, 212),
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold),
-              ),
+              // Text(
+              //   "Reviews MoLods",
+              //   style: GoogleFonts.prompt(
+              //       color: const Color.fromARGB(255, 4, 205, 212),
+              //       fontSize: 30,
+              //       fontWeight: FontWeight.bold),
+              // ),
               Padding(
-                padding: const EdgeInsets.only(left: 40.0, top: 30, right: 40),
+                padding: const EdgeInsets.only(left: 40.0, top: 20, right: 40),
                 child: Form(
                   key: _loginForm,
                   child: Column(
@@ -115,7 +117,9 @@ class _LoginState extends State<Login> {
                       Text(
                         "เข้าสู่ระบบ",
                         style: GoogleFonts.prompt(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                       const SizedBox(
                         height: 20,
@@ -124,8 +128,13 @@ class _LoginState extends State<Login> {
                         controller: usernameController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "อีเมล",
+                          filled:
+                              true, // Add this to enable filling with background color
+                          fillColor:
+                              Colors.white, // Set the background color to white
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+
                           hintText: "กรอกอีเมล",
                         ),
                         onChanged: (String value) {},
@@ -143,16 +152,23 @@ class _LoginState extends State<Login> {
                         keyboardType: TextInputType.text,
                         obscureText: true,
                         enableSuggestions: false,
-                        autocorrect: false,
+                        autocorrect: true,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: "รหัสผ่าน",
+                          filled:
+                              true, // Add this to enable filling with background color
+                          fillColor:
+                              Colors.white, // Set the background color to white
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+
                           hintText: "กรอกรหัสผ่าน",
                         ),
+                        style: TextStyle(
+                            color: Colors.black), // Set text color to black
                         onChanged: (String value) {},
                         validator: (value) {
                           return value!.isEmpty
-                              ? 'Please enter your passsord'
+                              ? 'Please enter your password'
                               : null;
                         },
                       ),
@@ -170,18 +186,19 @@ class _LoginState extends State<Login> {
                                 LoginResponse res = await verifyLogin();
 
                                 if (res.loginStatus == 1) {
-                                  displayDialog(
-                                      context, "Success", "login Success");
-
                                   print("login Success");
 
                                   globals.isLoggedIn = true;
                                   globals.jwtToken = res.jwtToken;
 
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const Home()));
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home(
+                                            res.userId, res.name, res.email)),
+                                  );
+                                  displayDialog(
+                                      context, "Success", "เข้าสู่ระบบสำเร็จ!");
                                 } else {
                                   displayDialog(context, "Error",
                                       "Please check your email or password");
@@ -191,7 +208,13 @@ class _LoginState extends State<Login> {
                                     "Please check your email and password");
                               }
                             },
-                            child: const Text("เข้าสู่ระบบ"),
+                            style: const ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Color.fromARGB(250, 255, 238, 0))),
+                            child: const Text(
+                              "เข้าสู่ระบบ",
+                              style: TextStyle(color: Colors.black),
+                            ),
                           ),
                         ),
                       ),
@@ -202,7 +225,10 @@ class _LoginState extends State<Login> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text("ยังไม่มีบัญชีผู้ใช้?"),
+                            const Text(
+                              "ยังไม่มีบัญชีผู้ใช้?",
+                              style: TextStyle(color: Colors.white),
+                            ),
                             TextButton(
                                 onPressed: () {
                                   Navigator.push(
@@ -211,7 +237,10 @@ class _LoginState extends State<Login> {
                                           builder: (context) =>
                                               const Register()));
                                 },
-                                child: const Text("สมัครสมาชิก"))
+                                child: const Text(
+                                  "สมัครสมาชิก",
+                                  style: TextStyle(color: Colors.white),
+                                ))
                           ],
                         ),
                       )
