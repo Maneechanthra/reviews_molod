@@ -11,7 +11,7 @@ import 'package:reviews_molod/api/api_editPost.dart';
 import 'package:reviews_molod/api/api_categories.dart';
 import 'package:http/http.dart' as http;
 import 'package:reviews_molod/views/home.dart';
-import 'package:reviews_molod/views/profile/profile.dart';
+import 'package:reviews_molod/profile/profile.dart';
 
 class EditReviewPage extends StatefulWidget {
   final int user_id;

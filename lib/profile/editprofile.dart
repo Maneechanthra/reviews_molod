@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/api/api_showData.dart';
 import 'package:http/http.dart' as http;
 import 'package:reviews_molod/views/home.dart';
-import 'package:reviews_molod/views/profile/dataprivate.dart';
+import 'package:reviews_molod/profile/dataprivate.dart';
 
 class EditProfile extends StatefulWidget {
   final int user_id;

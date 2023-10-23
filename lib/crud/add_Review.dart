@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:reviews_molod/api/api_category_list.dart';
 import 'package:reviews_molod/api/api_catgory.dart';
 import 'package:reviews_molod/catgoly/catgoly.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +24,7 @@ class AddReviewPage extends StatefulWidget {
 
 class _AddReviewPageState extends State<AddReviewPage> {
   late Future<ApiResponsePost> futureApiResponse;
+
   final _AddReviewsForm = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final bodyController = TextEditingController();
@@ -31,6 +34,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
   final ImagePicker imagePicker = ImagePicker();
   List<XFile> imageFileList = [];
 
+  //select img -----------------------------------------------
   void selectedImages() async {
     final List<XFile> selectedImages = await imagePicker.pickMultiImage();
 
@@ -63,6 +67,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
       );
     }
   }
+  //--------------------------------------------------------
 
   @override
   void dispose() {
@@ -74,7 +79,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
   @override
   void initState() {
     super.initState();
-    futureApiResponse = fetchApiPost();
+    // futureApiResponse = fetchApiPost();
     fetchCategoriesFromAPI();
   }
 
@@ -101,7 +106,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
           fieldName,
           imageFile.readAsBytes().asStream(),
           imageFile.lengthSync(),
-          filename: 'image$i.jpg',
+          filename: 'image$i.png+',
         ));
       }
 
@@ -160,6 +165,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
         child: Form(
           key: _AddReviewsForm,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
@@ -179,7 +185,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                       ]),
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(left: 40.0, right: 40, top: 30),
+                        const EdgeInsets.only(left: 40.0, right: 40, top: 40),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -187,9 +193,17 @@ class _AddReviewPageState extends State<AddReviewPage> {
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.circular(100)),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: Color.fromARGB(255, 7, 7, 7),
+                              ),
+                            ),
                           ),
                         ),
                         Text(
@@ -201,15 +215,19 @@ class _AddReviewPageState extends State<AddReviewPage> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Home(widget.user_id,
-                                        widget.userName, widget.email)));
+                            Navigator.pop(context);
                           },
-                          child: const Icon(
-                            Icons.home,
-                            color: Colors.white,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.circular(100)),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.home,
+                                color: Color.fromARGB(255, 7, 7, 7),
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -222,7 +240,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
               ),
               Image.asset(
                 "assets/img/review_img.png",
-                width: 300,
+                width: 200,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -247,6 +265,11 @@ class _AddReviewPageState extends State<AddReviewPage> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       hintText: 'รายละเอียดรีวิว'),
+                  maxLines: 3,
+                  maxLength: 400,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(400),
+                  ],
                 ),
               ),
               Padding(
@@ -282,8 +305,26 @@ class _AddReviewPageState extends State<AddReviewPage> {
                   ],
                 ),
               ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
+                  children: [
+                    Icon(Icons.add_a_photo_outlined),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "เพิ่มรูปภาพ",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Color.fromARGB(255, 124, 124, 124),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -338,25 +379,30 @@ class _AddReviewPageState extends State<AddReviewPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: SizedBox(
-                    width: 400,
-                    child: FilledButton(
-                        onPressed: () async {
-                          if (_AddReviewsForm.currentState!.validate()) {
-                            print("Add Review Prograss");
-                            CategoryModel res = await category();
-                            print("Add review Success");
-                            // ignore: use_build_context_synchronously
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Home(widget.user_id,
-                                    widget.email, widget.userName),
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text("บันทึกข้อมูล"))),
-              )
+                  width: 400,
+                  child: FilledButton(
+                    onPressed: () async {
+                      if (_AddReviewsForm.currentState!.validate()) {
+                        print("Add Review Prograss");
+                        CategoryModel res = await category();
+                        print("Add review Success");
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Home(
+                                widget.user_id, widget.email, widget.userName),
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text(
+                      "บันทึกข้อมูล",
+                      style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

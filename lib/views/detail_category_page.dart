@@ -3,18 +3,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/api/api_showposttavel.dart';
-import 'package:reviews_molod/views/detail/detail.dart';
 import 'package:http/http.dart' as http;
+import 'package:reviews_molod/views/detail_review.dart';
 
-class Movie extends StatefulWidget {
+class DetailCategoryPage extends StatefulWidget {
   final int categoryId;
-  Movie(this.categoryId, {Key? key}) : super(key: key);
+  DetailCategoryPage(this.categoryId, {Key? key}) : super(key: key);
 
   @override
-  State<Movie> createState() => _MovieState();
+  State<DetailCategoryPage> createState() => _DetailCategoryPageState();
 }
 
-class _MovieState extends State<Movie> {
+class _DetailCategoryPageState extends State<DetailCategoryPage> {
   String searchText = "";
   late Future<List<ShowPostTavel>> futureShowPostTavel;
 
@@ -22,25 +22,6 @@ class _MovieState extends State<Movie> {
   void initState() {
     super.initState();
     futureShowPostTavel = fetchShowPostTavel(widget.categoryId);
-  }
-
-  Future<List<ShowPostTavel>> fetchShowPostTavel(int categoryId) async {
-    final response = await http.get(
-        Uri.parse('http://10.0.2.2:8000/api/posts/tavel/$categoryId'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Accept': "*/*",
-          'connection': 'keep-alive',
-        });
-    print(response.body);
-    print(response.statusCode);
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body) as List<dynamic>;
-      return data.map((json) => ShowPostTavel.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load data from API');
-    }
   }
 
   @override
@@ -84,21 +65,18 @@ class _MovieState extends State<Movie> {
                     child: Text("ไม่พบข้อมูล"),
                   );
                 } else {
+                  final filteredPosts =
+                      filterPostsBySearch(snapshot.data!, searchText);
                   return ListView.builder(
-                    itemCount: snapshot.data!.length,
+                    itemCount: filteredPosts.length,
                     itemBuilder: (context, index) {
-                      final post = snapshot.data![index];
-                      final String imageUrl =
-                          'http://10.0.2.2:8000/api/storage/img_content/${post.img_content_1}';
-                      // final imgURL = post.img_content_1;
-                      // print("ภาพ " + imgURL);
-
+                      final post = filteredPosts[index];
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailPage(post.id),
+                              builder: (context) => DetailPost(post.id),
                             ),
                           );
                         },
@@ -121,11 +99,12 @@ class _MovieState extends State<Movie> {
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: Image.network(
-                                          imageUrl,
-                                          fit: BoxFit.cover,
-                                        )),
+                                      borderRadius: BorderRadius.circular(5),
+                                      child: Image.network(
+                                        'http://10.0.2.2:8000/api/storage/img_content/${post.img_content_1}',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(10.0),
@@ -179,5 +158,18 @@ class _MovieState extends State<Movie> {
         ],
       ),
     );
+  }
+
+  List<ShowPostTavel> filterPostsBySearch(
+      List<ShowPostTavel> posts, String query) {
+    if (query.isEmpty) {
+      return posts;
+    }
+
+    final lowerCaseQuery = query.toLowerCase();
+    return posts.where((post) {
+      return post.title.toLowerCase().contains(lowerCaseQuery) ||
+          post.body.toLowerCase().contains(lowerCaseQuery);
+    }).toList();
   }
 }

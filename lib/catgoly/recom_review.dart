@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reviews_molod/api/api_showDataProfile.dart';
-import 'package:reviews_molod/class_list/list_recom.dart';
-import 'package:reviews_molod/views/book.dart';
-import 'package:reviews_molod/views/movie.dart';
-import 'package:reviews_molod/views/restaurant.dart';
-import 'package:reviews_molod/views/tavel.dart';
+import 'package:reviews_molod/api/api_recomment.dart';
+import 'package:reviews_molod/views/detail_review.dart';
 
 class RecomReview extends StatefulWidget {
   final int user_id;
@@ -16,28 +12,28 @@ class RecomReview extends StatefulWidget {
 }
 
 class _RecomReviewState extends State<RecomReview> {
-  late Future<List<ShowDataProfile>> futureShowPost;
+  late Future<List<RecommentMOdel>> futureShowPostRecomment;
 
   @override
   void initState() {
     super.initState();
-    futureShowPost = fetchShowPostUser(widget.user_id);
+    futureShowPostRecomment = fetchShowRecoment();
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: FutureBuilder<List<ShowDataProfile>>(
-        future: futureShowPost,
+      child: FutureBuilder<List<RecommentMOdel>>(
+        future: futureShowPostRecomment,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child:
-                  CircularProgressIndicator(), // แสดง Indicator ในระหว่างโหลดข้อมูล
+              child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else if (snapshot.hasData) {
+            // Use futureShowPostRecomment here
             return GridView.count(
               childAspectRatio: 0.7,
               crossAxisCount: 2,
@@ -55,7 +51,13 @@ class _RecomReviewState extends State<RecomReview> {
                           BorderRadius.circular(12), // กำหนดขอบของการ์ด
                     ),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    DetailPost(snapshot.data![index].id)));
+                      },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -83,7 +85,7 @@ class _RecomReviewState extends State<RecomReview> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  snapshot.data![index].post_title,
+                                  snapshot.data![index].title,
                                   style: GoogleFonts.prompt(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -108,7 +110,7 @@ class _RecomReviewState extends State<RecomReview> {
                                 Align(
                                   alignment: Alignment.bottomLeft,
                                   child: Text(
-                                    snapshot.data![index].created_at,
+                                    snapshot.data![index].createdAt,
                                     style: GoogleFonts.prompt(
                                       fontSize: 10,
                                       color: const Color(0xFFA8A8A8),

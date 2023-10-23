@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/api/api_showData.dart';
-import 'package:reviews_molod/views/profile/editprofile.dart';
+import 'package:reviews_molod/profile/editprofile.dart';
 import 'package:http/http.dart' as http;
 
 class DataPrivate extends StatefulWidget {
@@ -21,24 +21,6 @@ class _DataPrivateState extends State<DataPrivate> {
   void initState() {
     super.initState();
     futureShowUser = fetchShowUser(widget.user_id);
-  }
-
-  Future<ShowUser> fetchShowUser(int userId) async {
-    final response = await http.get(
-      Uri.parse('http://10.0.2.2:8000/api/user/$userId'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': '*/*',
-        'connection': 'keep-alive',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      return ShowUser.fromJson(data);
-    } else {
-      throw Exception('Failed to load data from API');
-    }
   }
 
   @override
@@ -102,7 +84,7 @@ class _DataPrivateState extends State<DataPrivate> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "ชื่อภาษาไทย",
+                                  "ชื่อ",
                                   style: GoogleFonts.prompt(
                                     fontSize: 14,
                                   ),

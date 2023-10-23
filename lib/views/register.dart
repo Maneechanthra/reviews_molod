@@ -92,14 +92,6 @@ class _RegisterState extends State<Register> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // FutureBuilder(
-              //     future: futureApiResponse,
-              //     builder: (context, snapshot) {
-              //       if (snapshot.hasData) {
-              //         return Text(snapshot.data!.textFromApi);
-              //       }
-              //       return const CircularProgressIndicator();
-              //     }),
               Center(
                 child: Image.asset(
                   "assets/logo.png",
@@ -143,23 +135,6 @@ class _RegisterState extends State<Register> {
                               : null;
                         },
                       ),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
-                      // TextFormField(
-                      //   controller: telephoneNumberController,
-                      //   keyboardType: TextInputType.text,
-                      //   decoration: InputDecoration(
-                      //       border: OutlineInputBorder(),
-                      //       labelText: 'เบอร์โทรศัพท์',
-                      //       hintText: 'กรอกเบอร์โทรศัพท์'),
-                      //   onChanged: (String value) {},
-                      //   validator: (value) {
-                      //     return value!.isEmpty
-                      //         ? 'please enter your telephone number'
-                      //         : null;
-                      //   },
-                      // ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -181,7 +156,6 @@ class _RegisterState extends State<Register> {
                               : null;
                         },
                       ),
-
                       const SizedBox(
                         height: 20,
                       ),

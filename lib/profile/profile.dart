@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:reviews_molod/api/api_showData.dart';
 import 'package:reviews_molod/api/api_showDataProfile.dart';
 import 'package:reviews_molod/catgoly/review_with_me.dart';
-import 'package:reviews_molod/views/profile/dataprivate.dart';
+import 'package:reviews_molod/profile/dataprivate.dart';
 
 class ProfilePage extends StatefulWidget {
   final int user_id;
@@ -95,10 +95,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Row(
                             children: [
                               const Icon(
-                                Icons.account_circle_outlined,
-                                size: 80,
+                                Icons.account_circle_sharp,
+                                size: 70,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Column(
@@ -109,8 +109,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     child: Text(
                                       "ชื่อ : " + userData.name,
                                       style: GoogleFonts.kanit(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w600,
                                           color:
                                               Color.fromARGB(255, 56, 0, 160)),
                                       maxLines: 1,

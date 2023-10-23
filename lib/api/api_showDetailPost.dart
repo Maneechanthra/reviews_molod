@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 class ShowDetailPost {
   final int id;
   final String title;
@@ -29,4 +32,24 @@ class ShowDetailPost {
         createdAt: json["created_at"],
         categoryTitle: json["category_title"],
       );
+}
+
+Future<List<ShowDetailPost>> fetchShowDetailPost(int Postid) async {
+  final response = await http.get(
+      Uri.parse('http://10.0.2.2:8000/api/posts/detail/$Postid'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': "*/*",
+        'connection': 'keep-alive',
+      });
+  print(response.body);
+  print(response.statusCode);
+  print(Postid);
+
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body) as List<dynamic>;
+    return data.map((json) => ShowDetailPost.fromJson(json)).toList();
+  } else {
+    throw Exception('Failed to load data from API');
+  }
 }

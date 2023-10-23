@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/api/api_showDataProfile.dart';
-import 'package:reviews_molod/class_list/list_recom.dart';
 import 'package:reviews_molod/crud/edit_Review.dart';
-import 'package:reviews_molod/crud/editreview.dart';
 
 class ReviewWithMe extends StatefulWidget {
   final int user_id;

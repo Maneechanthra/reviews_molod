@@ -1,53 +1,51 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:http/http.dart' as http;
 
-class ShowDataProfile {
-  final int post_id;
-  final String post_title;
+class RecommentMOdel {
+  final int id;
   final String title;
   final String body;
   final String imgContent1;
   final String imgContent2;
   final String imgContent3;
   final int category;
+  final String createdAt;
   final String name;
-  final int id;
-  final String created_at;
+  final String category_title;
+  final int user_id;
 
-  ShowDataProfile({
-    required this.post_id,
-    required this.post_title,
+  RecommentMOdel({
+    required this.id,
     required this.title,
     required this.body,
     required this.imgContent1,
     required this.imgContent2,
     required this.imgContent3,
     required this.category,
+    required this.createdAt,
     required this.name,
-    required this.id,
-    required this.created_at,
+    required this.category_title,
+    required this.user_id,
   });
 
-  factory ShowDataProfile.fromJson(Map<String, dynamic> json) =>
-      ShowDataProfile(
-        post_id: json["post_id"],
-        post_title: json["post_title"],
+  factory RecommentMOdel.fromJson(Map<String, dynamic> json) => RecommentMOdel(
+        id: json["id"],
         title: json["title"],
         body: json["body"],
         imgContent1: json["img_content_1"],
         imgContent2: json["img_content_2"],
         imgContent3: json["img_content_3"],
         category: json["category"],
+        createdAt: json["created_at"],
         name: json["name"],
-        id: json["id"],
-        created_at: json["created_at"],
+        category_title: json["category_title"],
+        user_id: json["user_id"],
       );
 }
 
-Future<List<ShowDataProfile>> fetchShowPostUser(int userId) async {
+Future<List<RecommentMOdel>> fetchShowRecoment() async {
   final response = await http.get(
-    Uri.parse('http://10.0.2.2:8000/api/post/showPost/$userId'),
+    Uri.parse('http://10.0.2.2:8000/api/recomment'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': '*/*',
@@ -61,7 +59,7 @@ Future<List<ShowDataProfile>> fetchShowPostUser(int userId) async {
   if (response.statusCode == 200) {
     try {
       final data = json.decode(response.body) as List<dynamic>;
-      return data.map((json) => ShowDataProfile.fromJson(json)).toList();
+      return data.map((json) => RecommentMOdel.fromJson(json)).toList();
     } catch (e) {
       print('Error decoding JSON: $e');
       throw Exception('Failed to decode JSON data');

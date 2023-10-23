@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/api/api_login.dart';
-import 'package:reviews_molod/catgoly/banner.dart';
 import 'package:reviews_molod/catgoly/catgoly.dart';
 import 'package:reviews_molod/catgoly/recom_review.dart';
 import 'package:reviews_molod/crud/add_Review.dart';
-import 'package:reviews_molod/crud/addreview.dart';
 import 'package:reviews_molod/views/login.dart';
-import 'package:reviews_molod/views/profile/profile.dart';
+import 'package:reviews_molod/profile/profile.dart';
 
 class Home extends StatefulWidget {
   final int user_id;

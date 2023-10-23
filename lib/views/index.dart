@@ -21,24 +21,8 @@ class Index extends StatelessWidget {
               const SizedBox(
                 height: 200,
               ),
-              Column(
-                children: [
-                  // Text(
-                  //   "FUN IN THER SUN",
-                  //   style: GoogleFonts.kanit(
-                  //     fontSize: 40,
-                  //     fontWeight: FontWeight.bold,
-                  //     color: Color.fromARGB(255, 255, 255, 255),
-                  //   ),
-                  // ),
-                  // Text(
-                  //   "MaLod",
-                  //   style: GoogleFonts.kanit(
-                  //     fontSize: 60,
-                  //     color: Color.fromARGB(255, 255, 255, 255),
-                  //   ),
-                  // ),
-                ],
+              const Column(
+                children: [],
               ),
               const SizedBox(
                 height: 10,

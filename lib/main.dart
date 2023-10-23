@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reviews_molod/crud/add_Review.dart';
-import 'package:reviews_molod/crud/addreview.dart';
+
+import 'package:reviews_molod/views/detail_review.dart';
 import 'package:reviews_molod/views/home.dart';
 import 'package:reviews_molod/views/index.dart';
 import 'package:reviews_molod/views/login.dart';
