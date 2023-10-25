@@ -8,7 +8,7 @@ class Index extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(4, 35, 136, 1),
+      backgroundColor: const Color.fromRGBO(63, 0, 145, 1),
       body: Container(
         child: Center(
           child: Column(
@@ -34,7 +34,7 @@ class Index extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Login(
+                            builder: (context) => const Login(
                                   title: '',
                                 )));
                   },

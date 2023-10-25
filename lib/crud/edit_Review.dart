@@ -16,6 +16,8 @@ import 'package:reviews_molod/profile/profile.dart';
 class EditReviewPage extends StatefulWidget {
   final int user_id;
   final int post_id;
+  // final String email, name;
+  // this.name, this.email,
   const EditReviewPage(this.user_id, this.post_id, {Key? key})
       : super(key: key);
 
@@ -27,15 +29,14 @@ class _EditReviewPageState extends State<EditReviewPage> {
   // DateTime? selectedDate;
   final ImagePicker imagePicker = ImagePicker();
   List<XFile> imageFileList = [];
-
   List<String> userSavedImageURLs = [];
 
   late Future<EditPost> futureEditPost;
-  final _editReviwewForm = GlobalKey<FormState>();
+  final _editReviewForm = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final bodyController = TextEditingController();
 
-  int selectedCategoryIndex = 0;
+  int selectedCategoryIndex = 1;
 
   List<CategoriesModel> categories = [];
 
@@ -65,7 +66,6 @@ class _EditReviewPageState extends State<EditReviewPage> {
         imageFileList.addAll(selectedImages);
       });
     } else {
-      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (context) {
@@ -101,8 +101,9 @@ class _EditReviewPageState extends State<EditReviewPage> {
       final post = EditPost.fromJson(data);
       titleController.text = post.title;
       bodyController.text = post.body;
-
-      int selectedCategoryIndex = post.category;
+      selectedCategoryIndex = post.category;
+      print("id =>>");
+      print(selectedCategoryIndex);
 
       if (selectedCategoryIndex == 1) {
         selectedCategoryName = "หนังสือ";
@@ -153,24 +154,94 @@ class _EditReviewPageState extends State<EditReviewPage> {
           categories =
               jsonData.map((json) => CategoriesModel.fromJson(json)).toList();
           categoryList = categories.map((category) => category.title).toList();
-
           print(categoryList);
         });
       } else {
-        throw Exception('Failed to load data from API');
+        throw Exception('Failed to load data from API: ${response.statusCode}');
       }
     } catch (e) {
       print('Error: $e');
     }
   }
 
-  void show() {}
+  // Future<EditPost> updatePost() async {
+  //   final body = {
+  //     'id': widget.post_id,
+  //     'title': titleController.text,
+  //     'body': bodyController.text,
+  //     'category': selectedCategoryIndex,
+  //     'user_id': widget.user_id
+  //   };
+  //   print(selectedCategoryIndex);
+
+  //   final response = await http.post(
+  //     Uri.parse('http://10.0.2.2:8000/api/post/updatePost'),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //       'Accept': '*/*',
+  //       'connection': 'keep-alive',
+  //     },
+  //     body: jsonEncode(body),
+  //   );
+
+  //   if (response.statusCode == 200) {
+  //     final data = json.decode(response.body);
+  //     final user = EditPost.fromJson(data);
+  //     return user;
+  //   } else {
+  //     throw Exception('Failed to update data to the API');
+  //   }
+  // }
+
+  Future<EditPost> updatePost() async {
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('http://10.0.2.2:8000/api/post/updatePost'),
+    );
+
+    // Add text fields
+    request.fields['id'] = widget.post_id.toString();
+    request.fields['title'] = titleController.text;
+    request.fields['body'] = bodyController.text;
+    request.fields['category'] = selectedCategoryIndex.toString();
+    // request.fields['user_id'] = widget.user_id.toString();
+
+    // Add image files
+    for (int i = 0; i < imageFileList.length; i++) {
+      File imageFile = File(imageFileList[i].path);
+      String fieldName = 'img_content_${i + 1}';
+      request.files.add(http.MultipartFile(
+        fieldName,
+        imageFile.readAsBytes().asStream(),
+        imageFile.lengthSync(),
+        filename: 'image$i.png',
+      ));
+    }
+
+    final response = await request.send();
+
+    if (response.statusCode == 200) {
+      final responseJson = await response.stream.bytesToString();
+      final Map<String, dynamic> data = jsonDecode(responseJson);
+      return EditPost.fromJson(data);
+    } else {
+      throw Exception('Failed to update data to the API');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     futureEditPost = fetchEditPost(widget.post_id);
     fetchCategoriesFromAPI();
+
+    // Set selectedCategoryName based on selectedCategoryIndex
+    if (selectedCategoryIndex >= 0 &&
+        selectedCategoryIndex < categoryList.length) {
+      selectedCategoryName = categoryList[selectedCategoryIndex];
+
+      print('show' + selectedCategoryName);
+    }
   }
 
   @override
@@ -179,7 +250,7 @@ class _EditReviewPageState extends State<EditReviewPage> {
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
         child: Form(
-          key: _editReviwewForm,
+          key: _editReviewForm,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -289,20 +360,28 @@ class _EditReviewPageState extends State<EditReviewPage> {
                           .map<DropdownMenuItem<String>>((String category) {
                         return DropdownMenuItem<String>(
                           value: category,
-                          child: Text(
-                            category,
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
-                          ),
+                          child: Text(category),
                         );
                       }).toList(),
                       onChanged: (String? value) {
                         setState(() {
                           selectedCategoryName = value ?? '';
+                          if (selectedCategoryName == "หนังสือ") {
+                            selectedCategoryIndex = 1;
+                          } else if (selectedCategoryName ==
+                              "สถานที่ท่องเที่ยว") {
+                            selectedCategoryIndex = 2;
+                          } else if (selectedCategoryName ==
+                              "อาหาร/เครื่องดื่ม") {
+                            selectedCategoryIndex = 3;
+                          } else if (selectedCategoryName == "ร้านอาหาร") {
+                            selectedCategoryIndex = 4;
+                          } else if (selectedCategoryName == "ภาพยนต์") {
+                            selectedCategoryIndex = 5;
+                          }
                         });
                       },
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -335,9 +414,8 @@ class _EditReviewPageState extends State<EditReviewPage> {
                                   onPressed: () {
                                     setState(() {
                                       imageFileList.removeAt(index);
-                                      imageUrls.sort((a, b) =>
-                                          imageUrls.indexOf(a) -
-                                          imageUrls.indexOf(b));
+                                      imageUrls.removeAt(
+                                          index); // อัปเดตรายการ URL ของรูปภาพด้วยการลบ URL ที่เกี่ยวข้อง
                                     });
                                   },
                                 ),
@@ -366,6 +444,7 @@ class _EditReviewPageState extends State<EditReviewPage> {
                                   onPressed: () {
                                     setState(() {
                                       imageUrls.removeAt(index);
+                                      // ทำการลบ URL นี้จากรายการรูปภาพที่ถูกเก็บไว้ในฐานข้อมูลของคุณด้วย
                                     });
                                   },
                                 ),
@@ -396,20 +475,19 @@ class _EditReviewPageState extends State<EditReviewPage> {
                     width: 400,
                     child: FilledButton(
                         onPressed: () async {
-                          if (_editReviwewForm.currentState!.validate()) {
-                            print("Add Review Prograss");
-                            // EditPost res = await fetchEditPost();
-                            print("Add review Success");
-                            // ignore: use_build_context_synchronously
+                          if (_editReviewForm.currentState!.validate()) {
+                            print("edit Review Prograss");
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ProfilePage(
-                                  widget.user_id,
-                                ),
+                                builder: (context) =>
+                                    ProfilePage(widget.user_id),
                               ),
                             );
                           }
+
+                          EditPost res = await updatePost();
+                          print("edit review Success");
                         },
                         child: const Text("บันทึกข้อมูล"))),
               )

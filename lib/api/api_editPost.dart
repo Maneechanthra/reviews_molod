@@ -36,7 +36,7 @@ class EditPost {
         imgContent2: json["img_content_2"],
         imgContent3: json["img_content_3"],
         category: json["category"],
-        userId: json["user_id"],
+        userId: json["user_id"] as int,
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
         deletedAt: json["deleted_at"],

@@ -91,7 +91,7 @@ class _CatgolyState extends State<Catgoly> {
                       }
                     },
                     child: Card(
-                      elevation: 8.0, // No elevation (no shadow)
+                      elevation: 4.0, // No elevation (no shadow)
                       shadowColor: Color.fromARGB(255, 214, 233, 253),
                       shape: RoundedRectangleBorder(
                         borderRadius:

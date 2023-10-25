@@ -21,7 +21,7 @@ class ApiResponsePost {
 class CategoryModel {
   String title;
   String body;
-  String category;
+  int category;
   File img_content_1;
   File img_content_2;
   File img_content_3;

@@ -132,7 +132,7 @@ class _EditProfileState extends State<EditProfile> {
                       controller: nameController,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'ชื่อภาษาไทย',
+                        labelText: 'ชื่อ',
                         hintText: 'กรอกชื่อ-นามสกุล',
                       ),
                     ),

@@ -4,6 +4,7 @@ import 'package:reviews_molod/api/api_login.dart';
 import 'package:reviews_molod/catgoly/catgoly.dart';
 import 'package:reviews_molod/catgoly/recom_review.dart';
 import 'package:reviews_molod/crud/add_Review.dart';
+import 'package:reviews_molod/profile/data_profile.dart';
 import 'package:reviews_molod/views/login.dart';
 import 'package:reviews_molod/profile/profile.dart';
 
@@ -157,12 +158,12 @@ class _HomeState extends State<Home> {
                     children: [
                       const Icon(Icons.category_rounded),
                       const SizedBox(
-                        width: 10,
+                        width: 5,
                       ),
                       Text(
                         "หมวดหมู่",
                         style: GoogleFonts.kanit(
-                          fontSize: 22,
+                          fontSize: 18,
                           color: Color.fromARGB(255, 0, 0, 0),
                           fontWeight: FontWeight.bold,
                         ),
@@ -175,19 +176,19 @@ class _HomeState extends State<Home> {
                   child: Catgoly(),
                 ),
                 Container(
-                    margin: const EdgeInsets.only(top: 20, left: 5),
+                    margin: const EdgeInsets.only(top: 15, left: 5),
                     alignment: Alignment.centerLeft,
                     child: Row(
                       children: [
                         const Icon(Icons.recommend),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Text(
                           "แนะนำสำหรับคุณ",
                           style: GoogleFonts.kanit(
                               color: Color.fromARGB(255, 0, 0, 0),
-                              fontSize: 22,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
                       ],

@@ -84,7 +84,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(4, 35, 136, 1),
+      backgroundColor: const Color.fromRGBO(63, 0, 145, 1),
       body: Padding(
         padding: const EdgeInsets.only(top: 100.0),
         child: SingleChildScrollView(

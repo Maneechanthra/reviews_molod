@@ -38,6 +38,8 @@ class _DataPrivateState extends State<DataPrivate> {
           padding: const EdgeInsets.all(10.0),
           child: Card(
               elevation: 5,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(13)),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: FutureBuilder(

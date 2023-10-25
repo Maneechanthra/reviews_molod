@@ -45,10 +45,10 @@ class _RecomReviewState extends State<RecomReview> {
                   padding: const EdgeInsets.only(left: 3.0, right: 3),
                   child: Card(
                     color: Colors.white,
-                    elevation: 3.0, // เพิ่มเงา
+                    elevation: 4.0, // เพิ่มเงา
                     shape: RoundedRectangleBorder(
                       borderRadius:
-                          BorderRadius.circular(12), // กำหนดขอบของการ์ด
+                          BorderRadius.circular(13), // กำหนดขอบของการ์ด
                     ),
                     child: InkWell(
                       onTap: () {
@@ -62,14 +62,17 @@ class _RecomReviewState extends State<RecomReview> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.all(0.0),
                             child: Card(
                               elevation: 0.0, // ไม่มีเงา
-                              child: Image.network(
-                                imageUrl,
-                                height: 150,
-                                width: double.maxFinite,
-                                fit: BoxFit.cover,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(13),
+                                child: Image.network(
+                                  imageUrl,
+                                  // height: 150,
+                                  width: double.maxFinite,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),

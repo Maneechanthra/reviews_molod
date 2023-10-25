@@ -5,6 +5,8 @@ import 'package:reviews_molod/crud/edit_Review.dart';
 
 class ReviewWithMe extends StatefulWidget {
   final int user_id;
+  // final String name, email;
+  // this.name, this.email,
   const ReviewWithMe(this.user_id, {Key? key}) : super(key: key);
   @override
   State<ReviewWithMe> createState() => _ReviewWithMeState();
@@ -26,7 +28,7 @@ class _ReviewWithMeState extends State<ReviewWithMe> {
         future: futureShowPost,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator(); // แสดง Indicator ในระหว่างโหลดข้อมูล
+            return const CircularProgressIndicator(); // แสดง Indicator ในระหว่างโหลดข้อมูล
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else if (snapshot.hasData) {
@@ -44,20 +46,25 @@ class _ReviewWithMeState extends State<ReviewWithMe> {
                 return Card(
                   color: Color.fromARGB(255, 244, 244, 255),
                   elevation: 5,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(13)),
                   child: InkWell(
                     onTap: () {},
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(13),
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.network(
-                              imageUrl,
-                              height: 100,
-                              width: double.maxFinite,
-                              fit: BoxFit.cover,
+                            padding: const EdgeInsets.all(0.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(13),
+                              child: Image.network(
+                                imageUrl,
+                                // height: 100,
+                                width: double.maxFinite,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),

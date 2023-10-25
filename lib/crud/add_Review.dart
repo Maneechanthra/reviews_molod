@@ -157,6 +157,12 @@ class _AddReviewPageState extends State<AddReviewPage> {
     }
   }
 
+  void displayDialog(context, title, text) => showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(title: Text(title), content: Text(text)),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -394,6 +400,10 @@ class _AddReviewPageState extends State<AddReviewPage> {
                                 widget.user_id, widget.email, widget.userName),
                           ),
                         );
+                        displayDialog(context, "สำเร็จ", "บันทึกข้อมูลสำเร็จ!");
+                      } else {
+                        displayDialog(
+                            context, "ไม่สำเร็จ", "บันทึกข้อมูลไม่สำเร็จ!");
                       }
                     },
                     child: const Text(

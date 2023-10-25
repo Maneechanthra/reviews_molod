@@ -90,6 +90,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: const EdgeInsets.only(top: 15.0),
                       child: Card(
                         elevation: 5,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(13)),
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Row(
@@ -155,14 +157,14 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: EdgeInsets.only(left: 22.0),
               child: Row(
                 children: [
-                  const Icon(Icons.reviews),
+                  const Icon(Icons.reviews_outlined),
                   const SizedBox(
                     width: 10,
                   ),
                   Text(
                     "รีวิวของฉัน",
                     style: GoogleFonts.kanit(
-                      fontSize: 24,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -170,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(10),
               child: ReviewWithMe(widget.user_id),
             )
           ],

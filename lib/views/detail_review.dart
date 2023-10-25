@@ -23,7 +23,6 @@ class _DetailPostState extends State<DetailPost> {
   void initState() {
     super.initState();
     futureShowDetailPost = fetchShowDetailPost(widget.Postid);
-
     print(widget.Postid);
   }
 
