@@ -52,6 +52,7 @@ Future<List<ShowDataProfile>> fetchShowPostUser(int userId) async {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': '*/*',
       'connection': 'keep-alive',
+      // 'Authorization': 'Bearer ' + globals.jwtToken,
     },
   );
 

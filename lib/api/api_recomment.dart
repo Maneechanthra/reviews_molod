@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '/globals.dart' as globals;
 
 class RecommentMOdel {
   final int id;
@@ -50,6 +51,7 @@ Future<List<RecommentMOdel>> fetchShowRecoment() async {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': '*/*',
       'connection': 'keep-alive',
+      'Authorization': 'Bearer ' + globals.jwtToken,
     },
   );
 

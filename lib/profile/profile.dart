@@ -6,6 +6,7 @@ import 'package:reviews_molod/api/api_showData.dart';
 import 'package:reviews_molod/api/api_showDataProfile.dart';
 import 'package:reviews_molod/catgoly/review_with_me.dart';
 import 'package:reviews_molod/profile/dataprivate.dart';
+import '/globals.dart' as globals;
 
 class ProfilePage extends StatefulWidget {
   final int user_id;

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import '/globals.dart' as globals;
 
 class ShowPostTavel {
   final int id;
@@ -39,6 +40,7 @@ Future<List<ShowPostTavel>> fetchShowPostTavel(int categoryId) async {
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': "*/*",
       'connection': 'keep-alive',
+      'Authorization': 'Bearer ' + globals.jwtToken,
     },
   );
   print(response.body);
